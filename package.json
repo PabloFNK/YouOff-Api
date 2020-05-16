@@ -22,7 +22,7 @@
     "husky": "^2.4.1",
     "lint-staged": "^8.2.1",
     "prettier": "^1.18.2",
-    "ytdl-core": "^0.29.2"
+    "ytdl-core": "2.1.2"
   },
   "husky": {
     "hooks": {
@@ -34,5 +34,8 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
