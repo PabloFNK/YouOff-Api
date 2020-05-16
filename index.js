@@ -4,32 +4,47 @@ const ytdl = require("ytdl-core");
 const app = express();
 const { validateYoutubeURL } = require("./utils/validate");
 
-const PORT = process.env.PORT || 3000;
+app.use(
+  cors({
+    credentials: true,
+    origin: true
+  })
+);
 
-app.use(cors());
+app.options("*", cors());
 
-app.listen(PORT, () => {
-  console.log(`Server listening at port: ${PORT}`);
+app.get("/", (req, res) => res.send("Working!!!"));
+
+app.listen(process.env.PORT || 3000, function() {
+  console.log("server running on port 3000", "");
 });
 
-app.get("/download", async (req, res) => {
-  const { url } = req.query;
+// const PORT = process.env.PORT || 3000;
 
-  if (!url) {
-    return res.status(500).send("No URL provided");
-  }
+// app.use(cors());
 
-  if (!validateYoutubeURL(url)) {
-    return res.status(500).send("This is not a valid youtube URL");
-  }
+// app.listen(PORT, () => {
+//   console.log(`Server listening at port: ${PORT}`);
+// });
 
-  const info = await ytdl.getBasicInfo(url);
-  const title = info["player_response"].videoDetails.title;
-  const fileName = title.replace(/\s+/g, "_");
+// app.get("/download", async (req, res) => {
+//   const { url } = req.query;
 
-  res.header("Content-Disposition", `attachment; filename="${fileName}.mp4"`);
+//   if (!url) {
+//     return res.status(500).send("No URL provided");
+//   }
 
-  ytdl(url, {
-    format: "mp4"
-  }).pipe(res);
-});
+//   if (!validateYoutubeURL(url)) {
+//     return res.status(500).send("This is not a valid youtube URL");
+//   }
+
+//   const info = await ytdl.getBasicInfo(url);
+//   const title = info["player_response"].videoDetails.title;
+//   const fileName = title.replace(/\s+/g, "_");
+
+//   res.header("Content-Disposition", `attachment; filename="${fileName}.mp4"`);
+
+//   ytdl(url, {
+//     format: "mp4"
+//   }).pipe(res);
+// });
