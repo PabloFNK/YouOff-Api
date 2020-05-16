@@ -16,13 +16,15 @@
     "url": "https://github.com/PabloFNK/YouOff-Api/issues"
   },
   "homepage": "https://github.com/PabloFNK/YouOff-Api#readme",
-  "devDependencies": {
+  "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "ytdl-core": "2.1.2"
+  },
+  "devDependencies": {
     "husky": "^2.4.1",
     "lint-staged": "^8.2.1",
-    "prettier": "^1.18.2",
-    "ytdl-core": "2.1.2"
+    "prettier": "^1.18.2"
   },
   "husky": {
     "hooks": {
