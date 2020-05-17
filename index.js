@@ -4,9 +4,13 @@ const ytdl = require("ytdl-core");
 const app = express();
 const { validateYoutubeURL } = require("./utils/validate");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+app.use(
+  cors({
+    exposedHeaders: "Content-Disposition"
+  })
+);
 
 app.listen(PORT, () => {
   console.log(`Server listening at port: ${PORT}`);
@@ -16,11 +20,13 @@ app.get("/download", async (req, res) => {
   const { url } = req.query;
 
   if (!url) {
-    return res.status(500).send("No URL provided");
+    return res.status(400).send({ errorMessage: "No URL provided" });
   }
 
   if (!validateYoutubeURL(url)) {
-    return res.status(500).send("This is not a valid youtube URL");
+    return res
+      .status(400)
+      .send({ errorMessage: "This is not a valid youtube URL" });
   }
 
   const info = await ytdl.getBasicInfo(url);
